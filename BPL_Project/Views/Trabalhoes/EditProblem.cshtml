@@ -1,0 +1,29 @@
+﻿@model BPL_Project.Models.Trabalho
+
+@{
+    ViewBag.Title = "EditProblem";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-style-10">
+        <h2>Alteração do problema</h2>
+        <h4 class="text-danger">@ViewData["Message"]</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Trabalho_Id)
+        <div class="section">Problema</div>
+        <div class="inner-wrap">
+            @Html.EditorFor(model => model.Problema, new { htmlAttributes = new { @class = "form-control w3-input" } })
+            @Html.ValidationMessageFor(model => model.Problema, "", new { @class = "text-danger" })
+        </div>
+        <div class="button-section">
+            <input type="submit" value="Alterar" class="btn btn-default w3-blue w3-hover-blue w3-left" />
+            <input type="button" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important" value="Cancelar" onClick="history.go(-1)">
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

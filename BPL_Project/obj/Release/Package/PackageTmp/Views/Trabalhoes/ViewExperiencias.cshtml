@@ -1,0 +1,26 @@
+﻿@model IEnumerable<BPL_Project.Models.Avalia_Geral>
+
+@{
+    ViewBag.Title = "ViewExperiencias";
+}
+<div>
+    @Html.ActionLink("Voltar", "ViewTrabalho1", null, htmlAttributes: new { @class = "w3-bar-item w3-button w3-left w3-margin-top" })
+    <h2 class="w3-center w3-text-blue">@ViewData["Titulo"].ToString()<br />Experiências dos participantes</h2>
+    @foreach (var item in Model)
+    {
+        <div class="form-style-10 w3-centro">
+            <h2>@Html.DisplayFor(modelItem => item.Prof_Nome)</h2>
+            <div class="inner-wrap">
+                <p>@Html.DisplayFor(modelItem => item.Descricao)</p>
+            </div>
+            @if (TempData["Prof_Id"].Equals(item.Prof_Id))
+                {
+                    @Html.ActionLink("Editar", "../Experiencias/Edit", new { id = item.Experiencia_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue" })
+                
+            }
+        </div>
+    }
+
+</div>
+
+

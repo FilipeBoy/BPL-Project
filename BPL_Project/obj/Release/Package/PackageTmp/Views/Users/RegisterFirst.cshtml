@@ -1,0 +1,80 @@
+﻿@model BPL_Project.Models.User
+@{
+    ViewBag.Title = "RegisterFirst";
+}
+
+@using (Html.BeginForm("RegisterFirst", "Users", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-style-6">
+        @if (ViewData["Message"] == null)
+        {
+            <h2>Olá administrador!<span>Cadastre seu email e senha de acesso!</span></h2>
+        }
+        else
+        {
+            <h2>Olá administrador!</h2>
+        }
+        <h3 class="text-danger w3-center">@ViewData["Message"]</h3>
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        @if (ViewData["Message"] == null)
+        {
+            <div class="section"><span>1</span>Email</div>
+            <div class="inner-wrap">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control w3-input", placeholder = "xxx@xxx.com" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="section"><span>2</span>Senha</div>
+            <div class="inner-wrap">
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control w3-input", placeholder = "*****" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <div class="button-section">
+                <input type="submit" value="Entrar" class="btn btn-default w3-blue w3-hover-blue w3-left" />
+                <input type="button" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important" value="Cancelar" onClick="history.go(-1)">
+            </div>
+        }
+        @if (ViewData["Message"] != null && ViewData["Message2"] == null)
+        {
+
+            <div class="form-group"></div>
+            <div class="form-group"></div>
+            <div class="form-group"></div>
+            <div class="form-group"></div>
+            <div class="form-group">
+            </div>
+            <div class="form-group">
+
+                @if (TempData["Message3"] != null)
+                {
+                    <h4 class="text-danger w3-center">@TempData["Message3"]</h4>
+                    <div class="w3-center">
+                        @Html.ActionLink("Entrar no portal", "Login", new { }, htmlAttributes: new { @class = "w3-bar-item w3-button" })
+                    </div>
+                }
+                else
+                {
+                    <div class="w3-center">
+                        @Html.ActionLink("Resetar senha", "MudaSenha", new { }, htmlAttributes: new { @class = "w3-bar-item w3-button" })
+                    </div>
+                }
+            </div>
+        }
+        @if (ViewData["Message2"] != null)
+                {
+            <p><a href="/Users/Login" class="w3-button w3-padding-large w3-large w3-margin-top w3-hover-opacity-off">Entrar no portal</a></p>
+        }
+    </div>
+}
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

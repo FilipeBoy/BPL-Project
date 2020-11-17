@@ -1,0 +1,32 @@
+﻿@model BPL_Project.Models.Professor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="form-style-10">
+    <h2>Professor<span>Deseja realmente excluir este professor com todos os seus trabalhos?</span></h2>
+    <h4 class="text-danger">@ViewData["Message"]</h4>
+    <h3 class="text-danger text-center"><b>Atenção!</b><br /> Excluindo o professor, todos os seus trabalhos serão excluídos também!</h3>
+    <div class="section"><span>1</span>Curso</div>
+    <div class="inner-wrap">
+        @Html.DisplayFor(model => model.Curso.Nome)
+    </div>
+    <div class="section"><span>2</span>Nome</div>
+    <div class="inner-wrap">
+        @Html.DisplayFor(model => model.Nome)
+    </div>
+    <div class="section"><span>3</span>Email</div>
+    <div class="inner-wrap">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="button-section">
+            <input type="submit" value="Excluir" class="btn btn-default w3-blue w3-hover-blue w3-left" />
+            <input type="button" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important" value="Cancelar" onClick="history.go(-1)">
+        </div>
+    }
+
+</div>

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<BPL_Project.Models.Trabalho>
+@{
+    ViewBag.Title = "ViewTrabalho2";
+}
+
+<div class="w3-margin-top">
+    @foreach (var item in Model)
+    {
+        @Html.ActionLink("Voltar", "ViewTrabalho1", new { id = item.Trabalho_Id }, htmlAttributes: new { @class = "w3-bar-item w3-button w3-left" })
+        <a href="" onclick="window.print()"><img alt="image" class="img w3-right" src="~/Image/Printer.png" width="30" title="Imprimir" /></a>
+        <h2 class="w3-center w3-text-white">@Html.DisplayFor(modelItem => item.Assunto)</h2>
+    }
+</div>
+<div>
+    <div class="row">
+        <div class="w3-sideright">
+            <div class="form-style-12">
+                <h2>Avaliação</h2>
+                <div class="inner-wrap">
+                    @foreach (var item in Model)
+            {
+                if (item.Avaliacao != null)
+                {
+                    foreach (var item2 in item.Avaliacao)
+                    {
+                                <p>-  @Html.DisplayFor(modelItem => item2.Descricao)<br /></p>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="w3-sideleft">
+            <div class="form-style-12">
+                <h2>Objetivos</h2>
+                <div class="inner-wrap">
+                    @foreach (var item in Model)
+            {
+                if (item.Objetivo != null)
+                {
+                    foreach (var item2 in item.Objetivo)
+                    {
+                                <p>- @Html.DisplayFor(modelItem => item2.Descricao)<br /></p>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div align="center">
+        <div class="form-style-12">
+            <h2>Problema</h2>
+            <div class="inner-wrap">
+                @foreach (var item in Model)
+            {
+                    <p>@Html.DisplayFor(modelItem => item.Problema)</p>
+                }
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="w3-sideright">
+            <div class="form-style-12">
+                <h2>Produto</h2>
+                <div class="inner-wrap">
+                    @foreach (var item in Model)
+            {
+                if (item.Produto != null)
+                {
+                    foreach (var item2 in item.Produto)
+                    {
+                                <p>
+                                    - @Html.DisplayFor(modelItem => item2.Descricao)<br />
+                                </p>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="w3-sideleft">
+            <div class="form-style-12">
+                <h2>Atividades</h2>
+                <div class="inner-wrap">
+                    @foreach (var item in Model)
+            {
+                if (item.Atividade != null)
+                {
+                    foreach (var item2 in item.Atividade)
+                    {
+                                <p>
+                                    - @Html.DisplayFor(modelItem => item2.Descricao)<br />
+                                </p>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

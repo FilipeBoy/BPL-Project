@@ -1,0 +1,66 @@
+﻿@model IEnumerable<BPL_Project.Models.Trabalho>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<section class="w3-centro" style="width:80%;min-width:800px">
+    @Html.ActionLink("Novo trabalho", "Create", new { }, htmlAttributes: new { @class = "btn btn-default w3-red w3-hover-red w3-right" })
+    <h2 class="w3-center">Lista de Trabalhos</h2>
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+                <tr>
+                    <th>
+                        <span>&emsp;</span>Autor
+                    </th>
+                    <th>
+                        Título
+                    </th>
+                    <th>
+                        Data Início
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <span>&emsp;</span>@Html.DisplayFor(modelItem => item.Professor.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Assunto)
+                        </td>
+                        <td>
+                            @Html.ValueFor(modelItem => item.Data_Inicio, "{0:dd/MM/yyyy}")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td  class="w3-right">
+                            @Html.ActionLink("Abrir", "ViewTrabalho1", new { id = item.Trabalho_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue", @style = "margin-top:5px" })<span>&emsp;</span>
+                            @if (TempData["Prof_Id"].Equals(item.Prof_Id))
+                            {
+                                @Html.ActionLink("Excluir", "Delete", new { id = item.Trabalho_Id }, htmlAttributes: new { @class = "btn btn-default w3-red w3-hover-red", @style = "margin-top:5px" })<span>&emsp;</span>
+                            }
+                            else
+                            {
+                                <span>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+

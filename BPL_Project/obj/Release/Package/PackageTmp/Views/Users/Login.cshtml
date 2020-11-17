@@ -1,0 +1,74 @@
+﻿@model BPL_Project.Models.User
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<title>Portal ABP - Faculdade Dom Bosco</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="~/Content/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+    body, h1 {
+        font-family: "Raleway", sans-serif;
+    }
+
+    body, html {
+        height: 100%;
+    }
+
+    .bgimg {
+        background-image: url('/Image/estudantes.jpg');
+        min-height: 100%;
+        background-position: center;
+        background-size: cover;
+    }
+</style>
+<body>
+
+    <div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+        <div class="w3-display-top w3-padding-large w3-xlarge">
+            <img alt="image" class="img w3-left" src="~/Image/logo-faculdade-dom-bosco.png" style="width:15%" />
+            <img alt="image" class="img w3-right" src="~/Image/NAeIP.png" style="width:15%" />
+        </div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-style-100">
+                <h2>Entre no portal!<span>Informe seu email e senha fornecida pelo administrador!</span></h2>
+                <span class="text-danger w3-text-red">@ViewData["Message"]</span>
+                <div class="section"><span>1</span>Email</div>
+                <div class="inner-wrap">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control w3-input", placeholder = "xxx@xxx.com" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger w3-text-red" })
+                </div>
+                <div class="section"><span>2</span>Senha</div>
+                <div class="inner-wrap">
+                    
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "*****" } })
+                    <a href="#"><img alt="image" class="img w3-right" src="~/Image/duvida.png" width="20" title="Se esquecer a senha, procure o administrador!" /></a>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger w3-text-red" })
+                </div>
+                <div class="button-section">
+                    <input type="submit" value="Entrar" class="btn btn-default w3-blue w3-hover-blue w3-left" />
+                    <input type="button" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important" value="Cancelar" onClick="history.go(-1)">
+                </div>
+            </div>
+        }
+
+    </div>
+    <footer class="col-sm-12">
+        <p>&copy; @DateTime.Now.Year - Faculdade Dom Bosco</p>
+    </footer>
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,292 @@
+﻿@model BPL_Project.Models.Trabalho
+@{
+    ViewBag.Title = "ViewTrabalho1";
+}
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.location.href = '#@ViewData["item"]';
+        });
+    </script>
+}
+<div class="centralizado w3-margin-top">
+	@Html.ActionLink("Fechar Trabalho", "Index", null, htmlAttributes: new { @class = "w3-bar-item w3-button w3-left" })
+    @Html.ActionLink("Visualizar no padrão ABP", "ViewTrabalho2", new { id = Model.Trabalho_Id }, htmlAttributes: new { @class = "w3-bar-item w3-button w3-right" })
+<br /><br /><br />
+</div>
+@if (Model.Status.Equals("Concluído"))
+{
+    if (ViewData["Experience"] == null)
+    {
+        <div>
+            <header class="w3-center w3-margin-bottom">
+                <h2 class="w3-text-blue w3-jumbo w3-hide-small"><b>Você ainda não nos contou sua experiência no trabalho!</b></h2>
+                <p><a href="/Experiencias/Create" class="w3-button w3-padding-large w3-large w3-margin-top w3-hover-opacity-off">Contar experiência</a></p>
+            </header>
+        </div>
+    }
+    else
+    {
+        <div>
+            <header class="w3-center w3-margin-bottom">
+                <p><a href="/Trabalhoes/ViewExperiencias" class="w3-button w3-padding-large w3-large w3-margin-top w3-hover-opacity-off">Visualizar experiências</a></p>
+            </header>
+        </div>
+    }
+}
+@if (Model != null)
+{
+    <div class="form-style-12 w3-centro">
+            <h2>Dados do trabalho</h2>
+            <h4 class="text-danger">@ViewData["Message"]</h4>
+            <div class="section">&nbsp; Autor: @Html.DisplayFor(modelItem => Model.Professor.Nome)</div>
+            <div class="section">&nbsp; Título: @Html.DisplayFor(modelItem => Model.Assunto)</div>
+            <div class="section col-lg-4">Data Início: @Html.ValueFor(modelItem => Model.Data_Inicio, "{0:dd/MM/yyyy}")</div>
+            <div class="section col-lg-4">Data Execução: @Html.ValueFor(modelItem => Model.Data_Tranca, "{0:dd/MM/yyyy}")</div>
+            <div class="section col-lg-4">Data Fim: @Html.ValueFor(modelItem => Model.Data_Fim, "{0:dd/MM/yyyy}")</div>
+            <div class="section">&nbsp; Status: @Html.DisplayFor(modelItem => Model.Status)</div>
+            <a href="#" id="problema"></a>
+            <div class="button-section">
+                @if (TempData["Prof_Id"].Equals(Model.Professor.Prof_Id) && TempData["Status"]==null)
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = Model.Trabalho_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue" })
+                }
+            </div>
+
+        </div>
+
+    
+
+
+
+    <div class="form-style-10">
+        <div class="section">Problema</div>
+        <div class="inner-wrap">
+                @Html.DisplayFor(modelItem => Model.Problema)
+            </div>
+            @if (TempData["Prof_Id"].Equals(Model.Professor.Prof_Id) && TempData["Status"] == null)
+            {
+                @Html.ActionLink("Editar", "EditProblem", new { id = Model.Trabalho_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue" })
+            }
+        
+        <div class="section" href="#" id="objetivo"></div>
+    </div>
+
+
+
+    <div class="form-style-10">
+        @if (TempData["Permissao"].ToString().Equals("Editar") && TempData["Status"] == null)
+        {
+            @Html.ActionLink("Novo Objetivo", "../Objetivoes/Create", new { }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue w3-right" })
+        }
+        <div class="section">Objetivos</div>
+        <div class="inner-wrap">
+            @if (Model.Objetivo != null)
+                    {
+                        foreach (var item2 in Model.Objetivo)
+                        {
+                        <span>
+                            -
+                            @Html.DisplayFor(modelItem => item2.Descricao)
+                            @if (Model.Prof_Id != int.Parse(TempData["Prof_Id"].ToString()))
+                            {
+                                <i>
+                                    (
+                                    @Html.DisplayFor(modelItem => item2.Professor.Nome)
+                                    )
+                                </i>
+                            }
+
+                        </span>
+                        if (TempData["Permissao"].ToString().Equals("Editar") && TempData["Status"] == null)
+                        {
+                            if (TempData["Prof_Id"].Equals(item2.Prof_Id))
+                            {
+                                <span> | </span>
+                                    @Html.ActionLink("Editar", "../Objetivoes/Edit", new { id = item2.Objetivo_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue" })<span> | </span>
+                                    @Html.ActionLink("Excluir", "../Objetivoes/Delete", new { id = item2.Objetivo_Id }, htmlAttributes: new { @class = "btn btn-default w3-red w3-hover-red" })
+                            }
+                         }
+                        <br /><br />
+                    }
+                }
+            
+        </div>
+        <div class="section" href="#" id="atividade"></div>
+    </div>
+
+
+    <div class="form-style-10">
+        @if (TempData["Permissao"].ToString().Equals("Editar") && TempData["Status"] == null)
+        {
+            @Html.ActionLink("Nova Atividade", "../Atividades/Create", new { }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue w3-right" })
+        }
+        <div class="section">Atividades</div>
+        <div class="inner-wrap">
+            @if (Model.Atividade != null)
+                    {
+                        foreach (var item2 in Model.Atividade)
+                        {
+                        <span>
+                            -
+                            @Html.DisplayFor(modelItem => item2.Descricao)
+                            <br />
+                            <i>
+                                (
+                                @if (Model.Prof_Id != int.Parse(TempData["Prof_Id"].ToString()))
+                                {
+
+                                    @Html.DisplayFor(modelItem => item2.Professor.Nome)
+                                    <span> - </span>
+                                }
+                                 @Html.ValueFor(modelItem => item2.Data_Exec, "{0:dd/MM/yyyy}")       
+                            )</i >
+                        </span>
+                        if (TempData["Permissao"].ToString().Equals("Editar") && TempData["Status"] == null)
+                        {
+                            if (TempData["Prof_Id"].Equals(item2.Prof_Id))
+                            {
+
+                                    <span> | </span>
+                                    @Html.ActionLink("Editar", "../Atividades/Edit", new { id = item2.Atividade_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue" })<span> | </span>
+                                    @Html.ActionLink("Excluir", "../Atividades/Delete", new { id = item2.Atividade_Id }, htmlAttributes: new { @class = "btn btn-default w3-red w3-hover-red" })
+                            }
+                        }
+                        <br /><br />
+                    }
+                }
+            
+        </div>
+        <div class="section" href="#" id="produto"></div>
+    </div>
+
+        <div class="form-style-10">
+            @if (TempData["Permissao"].ToString().Equals("Editar") && TempData["Status"] == null)
+            {
+                @Html.ActionLink("Novo Produto", "../Produtoes/Create", new { }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue w3-right" })
+            }
+            <div class="section" href="#" id="produto">Produtos</div>
+            <div class="inner-wrap">
+                @if (Model.Produto != null)
+                    {
+                        foreach (var item2 in Model.Produto)
+                        {
+                            <span>
+                                -
+                                @Html.DisplayFor(modelItem => item2.Descricao)
+
+                                @if (Model.Prof_Id != int.Parse(TempData["Prof_Id"].ToString()))
+                                {
+                                    <i>
+                                        (
+                                        @Html.DisplayFor(modelItem => item2.Professor.Nome)
+                                        )
+                                    </i>
+                                }
+                            </span>
+                            if (TempData["Permissao"].ToString().Equals("Editar") && TempData["Status"] == null)
+                            {
+                                if (TempData["Prof_Id"].Equals(item2.Prof_Id))
+                                {
+									<span> | </span>
+                                    @Html.ActionLink("Editar", "../Produtoes/Edit", new { id = item2.Produto_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue" })<span> | </span>
+                                    @Html.ActionLink("Excluir", "../Produtoes/Delete", new { id = item2.Produto_Id }, htmlAttributes: new { @class = "btn btn-default w3-red w3-hover-red" })
+                                }
+                            }
+                            <br /><br />
+                        }
+                    }
+                
+            </div>
+            <div class="section" href="#" id="avaliacao"></div>
+        </div>
+
+            <div class="form-style-10">
+                @if (TempData["Permissao"].ToString().Equals("Editar") && TempData["Status"] == null)
+                {
+                    @Html.ActionLink("Nova avaliação", "../Avaliacaos/Create", new { }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue w3-button w3-right" })
+                }
+                <div class="section">Avaliação</div>
+                <div class="inner-wrap">
+                    @if (Model.Avaliacao != null)
+                        {
+                            foreach (var item2 in Model.Avaliacao)
+                            {
+                                <span>
+                                    -
+                                    @Html.DisplayFor(modelItem => item2.Descricao)
+
+                                    @if (Model.Prof_Id != int.Parse(TempData["Prof_Id"].ToString()))
+                                    {
+                                        <i>
+                                            (
+                                            @Html.DisplayFor(modelItem => item2.Professor.Nome)
+                                            )
+                                        </i>
+                                    }
+                                </span>
+                                if (TempData["Permissao"].ToString().Equals("Editar") && TempData["Status"] == null)
+                                {
+                                    if (TempData["Prof_Id"].Equals(item2.Prof_Id))
+                                    {
+									<span> | </span>
+                                    @Html.ActionLink("Editar", "../Avaliacaos/Edit", new { id = item2.Avalia_Trabalho_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue" })<span> | </span>
+                                    @Html.ActionLink("Excluir", "../Avaliacaos/Delete", new { id = item2.Avalia_Trabalho_Id }, htmlAttributes: new { @class = "btn btn-default w3-red w3-hover-red" })
+                                    }
+                                }
+                                <br /><br />
+                            }
+                        }
+                    
+                </div>
+                <div class="section" href="#" id="convidado"></div>
+            </div>
+
+
+   if (Model.Prof_Id == int.Parse(TempData["Prof_Id"].ToString()))
+        {
+
+            <div class="form-style-12">
+                @if (TempData["Status"] == null)
+                {
+					@Html.ActionLink("Convidar professor", "../Prof_Convidado/Create", new { }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue w3-right" })
+                }
+                <div class="section">Professor convidado</div>
+                <div class="inner-wrap">
+                    <table class="table">
+                        <tr>
+                            <th>Nome</th>
+                            <th>Permissão</th>
+                        </tr>
+
+                        @if (Model.Prof_Convidado != null)
+                        {
+                            foreach (var item2 in Model.Prof_Convidado)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item2.Professor.Nome)</td>
+                                    <td>@Html.DisplayFor(modelItem => item2.Permissao)</td>
+                                    <td>
+                                        @if (Model.Prof_Id == int.Parse(TempData["Prof_Id"].ToString()) && TempData["Status"] == null)
+                                        {
+                                            @Html.ActionLink("Editar", "../Prof_Convidado/Edit", new { id = item2.Prof_Conv_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue" })<span> | </span>
+                                            @Html.ActionLink("Excluir", "../Prof_Convidado/Delete", new { id = item2.Prof_Conv_Id }, htmlAttributes: new { @class = "btn btn-default w3-red w3-hover-red" })
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </table>
+                </div>
+            </div>
+    }
+}
+
+
+
+
+
+
+
+

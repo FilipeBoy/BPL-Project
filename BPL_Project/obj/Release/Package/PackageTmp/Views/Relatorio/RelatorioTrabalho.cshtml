@@ -1,0 +1,73 @@
+﻿@model List<BPL_Project.Models.Trabalho>
+
+@{
+    ViewBag.Title = "RelatorioProfessor";
+    var grid = new WebGrid(canPage: true, rowsPerPage: 10);
+    grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: true);
+}
+
+<div class="container">
+    <h2 class="w3-text-blue w3-center">Relatório de Trabalhos</h2>
+    
+    
+        <div class="container-fluid">
+            <div class="navbar-collapse">
+                 @using (Html.BeginForm("RelatorioTrabalho", "Relatorio", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+                {
+                    <div class="form-group">
+                        <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="Buscar" />
+                    </div>
+                    <button type="submit" value="Search" class="btn btn-success">Buscar</button>
+                }
+            </div>
+        </div>
+    
+    <div>
+        <h3 class="w3-text-blue">Total de itens encontrados: @ViewBag.TotalRows</h3>
+        @grid.Table(
+                tableStyle: "table table-responsive table-bordered w3-text-white",
+                columns: grid.Columns(
+                    grid.Column(columnName: "Prof_Curso", header: "Curso"),
+                    grid.Column(columnName: "Prof_Nome", header: "Autor"),
+                    grid.Column(columnName: "Assunto", header: "Título"),
+                    grid.Column(columnName: "Problema", header: "Problema"),
+                    grid.Column(columnName: "Data_Inicio", header: "Data Início",format: (item)=> new HtmlString(Convert.ToDateTime(item["Data_Inicio"]).ToString("dd/MM/yyyy"))),
+                    grid.Column(columnName: "Status", header: "Status")
+
+                )
+            )
+    </div>
+    <div>
+        <div class="row">
+                <div class="col-sm-6">
+                    @grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-small pagination-right")
+                </div>
+            </div>
+
+        @Html.Hidden("dir", grid.SortDirection)
+        @Html.Hidden("col", grid.SortColumn)
+
+    </div>
+</div>
+@section Scripts {
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            try {
+                var dir = $('#dir').val();
+                var col = $('#col').val();
+                var header = $("th a[href*=" + col + "]");
+                if (dir == "Ascending") {
+                    header.text(header.text() + "  ▲")
+                }
+                if (dir == "Descending") {
+                    header.text(header.text() + "  ▼");
+                }
+
+            } catch (e) {
+
+            }
+        })
+    </script>
+}

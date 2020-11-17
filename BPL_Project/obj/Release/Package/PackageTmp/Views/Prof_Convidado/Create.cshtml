@@ -1,0 +1,34 @@
+﻿@model BPL_Project.Models.Prof_Convidado
+
+@{
+    ViewBag.Title = "Create";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-style-10">
+        <h2>Convidar Professor<span>Selecione o professor a ser convidado!</span></h2>
+        <h4 class="text-danger">@TempData["Message"]</h4>
+        <h4 class="text-danger">@ViewData["Message"]</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="section"><span>1</span>Professor</div>
+        <div class="inner-wrap">
+            @Html.DropDownList("Prof_Id", null, htmlAttributes: new { @class = "form-control w3-input" })
+            @Html.ValidationMessageFor(model => model.Prof_Id, "", new { @class = "text-danger" })
+        </div>
+        <div class="section"><span>2</span>Nível de permissão</div>
+        <div class="inner-wrap">
+            @Html.DropDownList("Permissao", null, htmlAttributes: new { @class = "form-control w3-input" })
+            @Html.ValidationMessageFor(model => model.Permissao, "", new { @class = "text-danger" })
+        </div>
+        <div class="button-section">
+            <input type="submit" value="Enviar Convite" class="btn btn-default w3-blue w3-hover-blue w3-left" />
+            <a href="../Trabalhoes/ViewTrabalho1" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important">Cancelar</a>
+        </div>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,23 @@
+﻿@model BPL_Project.Models.User
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="form-style-10">
+    <h2>Usuário</h2>
+    <h4 class="text-danger">@ViewData["Message"]</h4>
+    <div class="section">Email &amp; Senha</div>
+    <div class="inner-wrap">
+        <label>
+            Email:
+            @Html.DisplayFor(model => model.Email)
+        </label>
+        <label>
+            Senha:
+            @Html.ActionLink("Mudar senha", "../Users/MudaSenha")
+        </label>
+    </div>
+    <div class="button-section">
+        <input type="button" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important" value="Cancelar" onClick="history.go(-1)">
+    </div>
+</div>

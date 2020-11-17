@@ -1,0 +1,33 @@
+﻿@model BPL_Project.Models.Professor
+
+@{
+    ViewBag.Title = "Details";
+}
+<div class="form-style-10">
+    <h2>Detalhes do professor</h2>
+    <h4 class="text-danger">@ViewData["Message"]</h4>
+    <div class="section"><span>1</span>Curso</div>
+    <div class="inner-wrap">
+        @Html.DisplayFor(model => model.Curso.Nome)
+    </div>
+    <div class="section"><span>2</span>Nome</div>
+    <div class="inner-wrap">
+        @Html.DisplayFor(model => model.Nome)
+    </div>
+    <div class="section"><span>3</span>Email</div>
+    <div class="inner-wrap">
+        <label>
+            @Html.DisplayFor(model => model.Email)
+        </label>
+     </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="button-section">
+            @Html.ActionLink("Editar", "Edit", new { id = Model.Prof_Id }, htmlAttributes: new { @class = "btn btn-default w3-blue w3-hover-blue w3-left" })
+            <a href="../Home/Inicio" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important">Cancelar</a>
+        </div>
+    }
+
+</div>

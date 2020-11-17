@@ -1,0 +1,34 @@
+﻿
+@if (Session["Paper"] != null && @Session["Name"] != null)
+{
+    if (Session["Paper"].ToString() != "user")
+    {
+        <ul class="nav navbar-nav navbar-right ">
+            <li>@Html.ActionLink(@Session["Name"].ToString(), "Details", "Users", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-button" })</li>
+            <li>@Html.ActionLink("Sair", "Logoff", "Users", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-red w3-hover-red" })</li>
+            <li>&emsp;</li>
+            <li><img alt="image" class="img w3-right" src="~/Image/NAeIP.png" width="120" /></li>
+            <li>&emsp;</li>
+        </ul>
+    }
+    else
+    {
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink(@Session["Name"].ToString(), "Details", "Professors", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-button" })</li>
+            <li>@Html.ActionLink("Sair", "Logoff", "Users", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-red w3-hover-red" })</li>
+            <li>&emsp;</li>
+            <li><img alt="image" class="img w3-right" src="~/Image/NAeIP.png" width="120" /></li>
+            <li>&emsp;</li>
+        </ul>
+    }
+
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Entrar", "Login", "Users", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-red w3-hover-red img" })</li>
+         <li>&emsp;</li>
+        <li><img alt="image" class="img w3-right" src="~/Image/NAeIP.png" width="120" /></li>
+         <li>&emsp;</li>
+    </ul>
+}

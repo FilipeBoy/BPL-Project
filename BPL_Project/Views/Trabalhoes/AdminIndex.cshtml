@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BPL_Project.Models.Trabalho>
+
+@{
+    ViewBag.Title = "AdminIndex";
+}
+
+<h2>Lista geral de Trabalhos</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Professor.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Assunto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Problema)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data_Inicio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data_Fim)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Professor.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Assunto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Problema)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data_Inicio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Data_Fim)
+        </td>
+        <td>
+            <a href="/Trabalhoes/Delete/@item.Trabalho_Id"><img alt="image" class="img" src="~/Image/icons/delete.png" width="25" title="Excluir" /></a>
+        </td>
+    </tr>
+}
+
+</table>

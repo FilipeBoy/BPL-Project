@@ -1,0 +1,48 @@
+﻿@model BPL_Project.Models.Trabalho
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<div class="form-style-10">
+    <h2>Trabalho<span>Tem certeza que deseja excluir este trabalho?</span></h2>
+    <h4 class="text-danger">@ViewData["Message"]</h4>
+    <div class="section"><span>1</span>Dados Gerais</div>
+    <div class="inner-wrap">
+        <label>
+            Título: 
+            @Html.DisplayFor(model => model.Assunto)
+        </label>
+        <label>
+            Data de início: 
+            @Html.DisplayFor(model => model.Data_Inicio, "{0:dd/MM/yyyy}")
+        </label>
+        <label>
+            Data de execução:
+            @Html.DisplayFor(model => model.Data_Tranca, "{0:dd/MM/yyyy}")
+        </label>
+        <label>
+            Data fim: 
+            @Html.DisplayFor(model => model.Data_Fim, "{0:dd/MM/yyyy}")
+        </label>
+        <label>
+            Status: 
+            @Html.DisplayFor(model => model.Status)
+        </label>
+    </div>
+    <div class="section"><span>2</span>Problema</div>
+    <div class="inner-wrap">
+        @Html.DisplayFor(model => model.Problema)
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="button-section">
+            <input type="submit" value="Excluir" class="btn btn-default w3-blue w3-hover-blue w3-left" />
+            <input type="button" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important" value="Cancelar" onClick="history.go(-1)">
+        </div>
+    }
+
+</div>
+

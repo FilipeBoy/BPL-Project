@@ -1,0 +1,25 @@
+﻿@model BPL_Project.Models.Curso
+
+@{
+    ViewBag.Title = "Delete";
+}
+<div class="form-style-6">
+    <h2>Curso<span>Deseja realmente excluir este curso?</span></h2>
+    <h4 class="text-danger">@ViewData["Message"]</h4>
+    <div class="section">Nome</div>
+    <div class="inner-wrap">
+        @Html.DisplayFor(model => model.Nome)
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="button-section">
+            <input type="submit" value="Excluir" class="btn btn-default w3-blue w3-hover-blue w3-left" />
+            <input type="button" class="btn btn-default w3-red w3-hover-red w3-right" style="border-color:#b94a48!important" value="Cancelar" onClick="history.go(-1)">
+        </div>
+    }
+
+</div>
+
+

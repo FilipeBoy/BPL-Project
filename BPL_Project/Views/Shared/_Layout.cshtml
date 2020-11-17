@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="~/Content/w3.css">
+        <link rel="stylesheet" href="~/Content/Site.css">
+        
+        <title>Portal ABP - Faculdade Dom Bosco</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <img alt="image" class="img w3-left" src="~/Image/logo-ABP.jpg" width="80" />
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>   
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        @if (Session["Paper"] != null)
+                        {
+                            <li>&emsp;</li>
+                            if (Session["Paper"].ToString() != "user")
+                            {
+                                <li>@Html.ActionLink("Início", "Inicio", "Home", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-button" })</li>
+                                <li>@Html.ActionLink("Cursos", "Index", "Cursoes", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-button" })</li>
+                                <li>@Html.ActionLink("Professores", "Index", "Professors", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-button" })</li>
+                                <li>@Html.ActionLink("Trabalhos", "RelatorioTrabalho", "Relatorio", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-button" })</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Início", "Inicio", "Home", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-button" })</li>
+                                <li>@Html.ActionLink("Novo Trabalho", "Create", "Trabalhoes", routeValues: null, htmlAttributes: new { @class = "w3-bar-item w3-button" })</li>
+                            }
+                        }
+                        </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer class="col-sm-12">
+                <p>&copy; @DateTime.Now.Year - Faculdade Dom Bosco</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+
+    </html>
